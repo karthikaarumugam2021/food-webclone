@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Menu Table</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #e74c3c;
+            color: white;
+            padding: 15px;
+        }
+
+        table {
+            width: 85%;
+            margin: auto;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background-color: #e16bff;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            width: 100px;
+            height: 80px;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: rgb(128, 0, 2);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgb(100, 12, 0);
+        }
+
+        .remove {
+            background-color: red;
+        }
+
+        .cart-box {
+            margin-top: 20px;
+            background: white;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+
+        /* 🔥 Category Box Style Added */
+        .category {
+            padding: 5px 12px;
+            border-radius: 20px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .veg {
+            background-color: #28a745;
+        }
+
+        .nonveg {
+            background-color: #dc3545;
+        }
+
+        .dessert {
+            background-color: #e83e8c;
+        }
+
+        .cooldrinks {
+            background-color: #17a2b8;
+        }
+
+        .mixed {
+            background-color: #6f42c1;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h1>🍽️ Food Menu</h1>
+
+<table border="1">
+    <tr>
+        <th>Image</th>
+        <th>Food Item</th>
+        <th>Category</th>
+        <th>Price (₹)</th>
+        <th>Action</th>
+    </tr>
+
+    <tr>
+        <td><img src="dosa.jpg"></td>
+        <td>Dosa</td>
+        <td><span class="category veg">Veg</span></td>
+        <td>180</td>
+        <td><button onclick="addToCart('Dosa',180)">Add</button></td>
+    </tr>
+
+    <tr>
+        <td><img src="briyani.jpg"></td>
+        <td>Chicken Biryani</td>
+        <td><span class="category nonveg">Non-Veg</span></td>
+        <td>220</td>
+        <td><button onclick="addToCart('Chicken Biryani',220)">Add</button></td>
+    </tr>
+
+    <tr>
+        <td><img src="noodles.jpg"></td>
+        <td>Chicken Noodles</td>
+        <td><span class="category nonveg">Non-Veg</span></td>
+        <td>90</td>
+        <td><button onclick="addToCart('Chicken Noodles',90)">Add</button></td>
+    </tr>
+
+    <tr>
+        <td><img src="Ice-cream.jpg"></td>
+        <td>Strawberry Ice Cream</td>
+        <td><span class="category dessert">Dessert</span></td>
+        <td>80</td>
+        <td><button onclick="addToCart('Strawberry Ice Cream',80)">Add</button></td>
+    </tr>
+
+    <tr>
+        <td><img src="Pizza.jpg"></td>
+        <td>Pizza</td>
+        <td><span class="category mixed">Veg / Non-Veg</span></td>
+        <td>299</td>
+        <td><button onclick="addToCart('Pizza',299)">Add</button></td>
+    </tr>
+
+    <tr>
+        <td><img src="sprite.jpg"></td>
+        <td>Sprite</td>
+        <td><span class="category cooldrinks">Cool Drinks</span></td>
+        <td>40</td>
+        <td><button onclick="addToCart('Sprite',40)">Add</button></td>
+    </tr>
+
+</table>
+
+<div class="cart-box">
+    <h2>🛒 Cart</h2>
+    <ul id="cartItems"></ul>
+    <h3>Total: ₹<span id="totalPrice">0</span></h3>
+</div>
+
+<script>
+let cart = [];
+let total = 0;
+
+function addToCart(name, price) {
+    cart.push({name, price});
+    total += price;
+    displayCart();
+}
+
+function displayCart() {
+    let list = document.getElementById("cartItems");
+    list.innerHTML = "";
+
+    cart.forEach((item, index) => {
+        list.innerHTML += `<li>
+            ${item.name} - ₹${item.price}
+            <button class="remove" onclick="removeItem(${index})">Remove</button>
+        </li>`;
+    });
+
+    document.getElementById("totalPrice").innerText = total;
+}
+
+function removeItem(index) {
+    total -= cart[index].price;
+    cart.splice(index, 1);
+    displayCart();
+}
+</script>
+
+</body>
+</html>
